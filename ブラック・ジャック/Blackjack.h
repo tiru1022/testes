@@ -13,9 +13,10 @@
 #define BURST 21        //バースト値
 #define COMPUTER_GET 17 //コンピュータのドロー判断基準
 #define MAXHAND 22      //手札の最大数
-
-//プロトタイプ宣言
-int Takehand(int);      //手札を引く処理
-char* Judge(int, int);  //勝敗を判定して文字列を返す
+#define MAXCARD 52      //トランプのカード
+#define SPADE 0         //スペード
+#define DIAMOND 1       //ダイヤ
+#define HEART 2         //ハート
+#define CLOVER 3        //クローバー
 
 #endif
