@@ -11,6 +11,7 @@
 void Display(int,int,int,int); //カードを画面に表示させる
 void Playgame();               //ゲームのプレイ部分
 void Clear_screen();           //画面を一度クリアする
+void Get_location(int*, int*);
 
 char suank[TRUMPCARD];
 int trump[CARD_X][CARD_Y];
@@ -29,7 +30,7 @@ int Nervousbreakdownmain(void){
         card[i - 1] = i;
     }
 
-    /* カードをシャッフル */
+    // カードをシャッフル
     srand((unsigned int)time(NULL));
     for (i = 1;i <= SHUFFLE;i++) {
         change1 = rand() % TRUMPCARD;
@@ -62,6 +63,8 @@ void Display(int x1, int y1, int x2, int y2){
     int x,y;
     int suank_num = 0;
     
+    Clear_screen();  //画面を一度クリア
+
     printf("  Y  0    1    2    3    4    5    6    7    8    9    10   11   12\n");
     printf("X   ----------------------------------------------------------------\n");
 
@@ -97,24 +100,23 @@ void Playgame(){
     int second = 2;  //停止時間
 
     while(TRUE){
-        Clear_screen();
+        //全て当てたら処理を抜ける
+        if(pair == TRUMPCARD / 2){
+            break;
+        }
+
         //カードを並べて表示
         Display(NONUMBER,NONUMBER,NONUMBER,NONUMBER);
         
         //1枚目のカードを選んで表示
-        printf("1枚目のカードを選んでください\nX -> ");
-        scanf("%d", &x1);
-        printf("Y -> ");
-        scanf("%d", &y1);
-        Clear_screen();
+        printf("1枚目のカードを選んでください\n");
+        Get_location(&x1,&y1);
         Display(x1,y1,NONUMBER,NONUMBER);
+
         
         //2枚目のカードを選んで表示
-        printf("2枚目のカードを選んでください\nX -> ");
-        scanf("%d", &x2);
-        printf("Y -> ");
-        scanf("%d", &y2);
-        Clear_screen();
+        printf("2枚目のカードを選んでください\n");
+        Get_location(&x2,&y2);
         Display(x1,y1,x2,y2);
         
         if(no1_card == no2_card){//当たったらそのカードは表示させないようにする
@@ -127,11 +129,6 @@ void Playgame(){
             printf("ハズレ...\n");
         }
         sleep(second); //数秒間待つ
-
-        //全て当てたら処理を抜ける
-        if(pair == TRUMPCARD / 2){
-            break;
-        }
     }
 }
 
@@ -139,4 +136,11 @@ void Playgame(){
 void Clear_screen(){
     CLR;            //画面をクリア
     LOCATION(0, 0); //表示位置を一番上に
+}
+
+void Get_location(int* x, int* y){
+    printf("X -> ");
+    scanf("%d", x);
+    printf("Y -> ");
+    scanf("%d", y);
 }

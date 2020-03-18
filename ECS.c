@@ -34,36 +34,38 @@ int kbhit(void)
 
 
 int Cursor_move(void){
+    char input;
 	int loop = TRUE;
     int cursor_x, cursor_y;
 
-    clr;           //画面クリア
-    location(0,0); //カーソルの初期位置指定
+    CLR;           //画面クリア
+    LOCATION(0,0); //カーソルの初期位置指定
     while(loop){
-	    if(kbhit()){
-            clr;              //画面クリア
-            switch (getchar()){
+        scanf("%c",&input);
+	    //if(kbhit()){
+            CLR;              //画面クリア
+            switch (input){
             case 'd':
-                right(2);     //右へ移動
+                RIGHT(2);     //右へ移動
                 continue;
             case 'a':
-                left(2);      //左へ移動
+                LEFT(2);      //左へ移動
                 continue;
             case 'w':
-                up(2);        //上へ移動
+                UP(2);        //上へ移動
                 continue; 
             case 's':
-                down(2);      //下へ移動
+                DOWN(2);      //下へ移動
                 continue;
             case 'l':
                 loop = FALSE; //処理を抜ける
-                position;     //カーソルの位置を取得
-                location(0,0);
+                POSITION;     //カーソルの位置を取得
+                LOCATION(0,0);
                 break;
             default:
                 continue;
             }
-    	}
+    	//}
     }
     scanf("\x1B[%d;%dR", &cursor_y, &cursor_x);
     printf("x = %d, y = %d\n", cursor_x, cursor_y); //カーソルの位置を表示
