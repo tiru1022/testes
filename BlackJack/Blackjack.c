@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include "Blackjack.h"
+#include "../truth.h"
+#include "../trump.h"
 
 //プロトタイプ宣言
 char* Make_trump(int*, int);       //送られてきた乱数をトランプに変換
@@ -14,7 +16,7 @@ typedef enum tag_turn{
     MAX      //参加者の数
 }TURN;
 
-int main(void){
+int Blackjackmain(void){
     int playerhand_sum;   //自分の手札の合計値
     int computerhand_sum; //相手の手札の合計値
     TURN p1,p2;           //参加者
@@ -43,30 +45,6 @@ int main(void){
     printf("%s\n", Judge(playerhand_sum, computerhand_sum, BURST));
 
     return 0;
-}
-
-//送られてきた乱数をトランプに変換
-char* Make_trump(int* value, int number){
-    char *card;                          //戻り値用変数
-    char suank[] = {'S', 'D', 'H', 'C'}; //トランプの柄
-
-        if(number >= 1 && number <= 13){
-            card = &suank[SPADE];
-            *value = number;
-        }
-        else if(number >= 14 && number <= 26){
-            card = &suank[DIAMOND];
-            *value = number - TRUMP_MAX;
-        }
-        else if(number >= 27 && number <= 39){
-            card = &suank[HEART];
-            *value = number - TRUMP_MAX * 2;
-        }
-        else if(number >= 40 && number <= 52){
-            card = &suank[CLOVER];
-            *value = number - TRUMP_MAX * 3;
-        }
-        return card;
 }
 
 //手札を引く処理
